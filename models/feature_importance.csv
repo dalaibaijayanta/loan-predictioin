@@ -1,0 +1,17 @@
+feature,mean_abs_shap
+RevolvingUtilizationOfUnsecuredLines,0.032409907629495444
+NumberOfTimes90DaysLate,0.030195877556908553
+NumberOfTime30-59DaysPastDueNotWorse,0.01802401675008521
+NumberOfTime60-89DaysPastDueNotWorse,0.01341869428421908
+age,0.009123075621309694
+NumberOfOpenCreditLinesAndLoans,0.006654799566495116
+DebtRatio,0.005759982069597455
+MonthlyIncome,0.004346056841897467
+NumberRealEstateLoansOrLines,0.0031217954373890526
+NumberOfDependents,0.001850012283467194
+MonthlyIncome_missing,0.0008546961169887279
+NumberOfTime30-59DaysPastDueNotWorse_missing,0.0008433392566941966
+NumberOfDependents_missing,4.557961387630423e-06
+age_missing,0.0
+NumberOfTimes90DaysLate_missing,0.0
+NumberOfTime60-89DaysPastDueNotWorse_missing,0.0
