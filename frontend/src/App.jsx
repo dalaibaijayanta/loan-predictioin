@@ -19,6 +19,16 @@ const [result, setResult] = useState(null);
 const [loading, setLoading] = useState(false);
 const [error, setError] = useState("");
 
+
+const maxImpact =
+  result?.explanations?.length > 0
+    ? Math.max(
+        ...result.explanations.map((item) =>
+          Math.abs(item.impact)
+        )
+      )
+    : 1;
+
   const handleChange = (event) => {
     const { name, value } = event.target;
 
@@ -356,6 +366,7 @@ const [error, setError] = useState("");
   </div>
 
 
+  {/* Loading */}
   {loading && (
     <div className="empty-result">
 
@@ -364,14 +375,15 @@ const [error, setError] = useState("");
       <h3>Analyzing Application...</h3>
 
       <p>
-        Our machine learning model is evaluating
-        the applicant's risk.
+        The machine learning model is evaluating
+        the applicant's financial risk.
       </p>
 
     </div>
   )}
 
 
+  {/* Error */}
   {!loading && error && (
     <div className="error-result">
 
@@ -387,6 +399,7 @@ const [error, setError] = useState("");
   )}
 
 
+  {/* Initial State */}
   {!loading && !error && !result && (
     <div className="empty-result">
 
@@ -406,10 +419,12 @@ const [error, setError] = useState("");
   )}
 
 
-  {!loading && result && (
+  {/* Prediction Result */}
+  {!loading && !error && result && (
+
     <div className="result-container">
 
-      {/* Risk Result */}
+      {/* Main Risk Card */}
       <div
         className={`risk-result ${
           result.risk_level === "HIGH RISK"
@@ -422,12 +437,18 @@ const [error, setError] = useState("");
           {result.risk_score}
         </div>
 
-        <div>
+        <div className="risk-main-info">
+
           <span className="risk-label">
             Risk Score
           </span>
 
           <h3>{result.risk_level}</h3>
+
+          <span className="score-description">
+            Score range: 0–100
+          </span>
+
         </div>
 
       </div>
@@ -436,7 +457,13 @@ const [error, setError] = useState("");
       {/* Default Probability */}
       <div className="probability-box">
 
-        <span>Default Probability</span>
+        <div>
+          <span>Probability of Default</span>
+
+          <small>
+            Estimated likelihood of default
+          </small>
+        </div>
 
         <strong>
           {result.default_probability}%
@@ -445,67 +472,144 @@ const [error, setError] = useState("");
       </div>
 
 
-      {/* Explanations */}
+      {/* Probability Bar */}
+      <div className="probability-meter">
+
+        <div className="meter-header">
+
+          <span>Risk Probability</span>
+
+          <span>
+            {result.default_probability}%
+          </span>
+
+        </div>
+
+        <div className="meter-track">
+
+          <div
+            className={`meter-fill ${
+              result.risk_level === "HIGH RISK"
+                ? "meter-high"
+                : "meter-low"
+            }`}
+            style={{
+              width: `${Math.min(
+                result.default_probability,
+                100
+              )}%`,
+            }}
+          ></div>
+
+        </div>
+
+      </div>
+
+
+      {/* Explainability */}
       <div className="explanation-section">
 
         <h3>Why this prediction?</h3>
 
         <p className="explanation-subtitle">
-          The strongest factors influencing this prediction
+          The strongest factors influencing the model's decision
         </p>
 
 
         <div className="explanation-list">
 
-          {result.explanations.map((item, index) => (
+          {result.explanations.map((item, index) => {
 
-            <div
-              className="explanation-item"
-              key={index}
-            >
+            const relativeImpact =
+              (Math.abs(item.impact) / maxImpact) * 100;
+
+            return (
 
               <div
-                className={`impact-indicator ${
-                  item.direction === "increases_risk"
-                    ? "risk-up"
-                    : "risk-down"
-                }`}
+                className="explanation-item"
+                key={index}
               >
-                {item.direction === "increases_risk"
-                  ? "↑"
-                  : "↓"}
-              </div>
 
-
-              <div className="explanation-info">
-
-                <span>
-                  {item.feature}
-                </span>
-
-                <small>
+                <div
+                  className={`impact-indicator ${
+                    item.direction === "increases_risk"
+                      ? "risk-up"
+                      : "risk-down"
+                  }`}
+                >
                   {item.direction === "increases_risk"
-                    ? "Increases risk"
-                    : "Decreases risk"}
-                </small>
+                    ? "↑"
+                    : "↓"}
+                </div>
+
+
+                <div className="explanation-info">
+
+                  <span>
+                    {item.feature}
+                  </span>
+
+                  <small>
+                    {item.direction === "increases_risk"
+                      ? "Increases risk"
+                      : "Decreases risk"}
+                  </small>
+
+                  <div className="impact-track">
+
+                    <div
+                      className={`impact-fill ${
+                        item.direction === "increases_risk"
+                          ? "impact-risk"
+                          : "impact-safe"
+                      }`}
+                      style={{
+                        width: `${relativeImpact}%`,
+                      }}
+                    ></div>
+
+                  </div>
+
+                </div>
+
+
+                <div className="impact-value">
+
+                  <span>
+                    {item.impact > 0 ? "+" : ""}
+                    {item.impact}
+                  </span>
+
+                  <small>
+                    contribution
+                  </small>
+
+                </div>
 
               </div>
 
+            );
+          })}
 
-              <strong>
-                {item.impact > 0 ? "+" : ""}
-                {item.impact}
-              </strong>
+        </div>
 
-            </div>
 
-          ))}
+        <div className="shap-note">
+
+          <strong>How to read this:</strong>
+
+          <span>
+            Positive contributions push the prediction
+            toward higher risk, while negative contributions
+            push it toward lower risk.
+          </span>
 
         </div>
 
       </div>
 
     </div>
+
   )}
 
 </section>

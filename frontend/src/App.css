@@ -677,3 +677,205 @@ footer {
 
   line-height: 1.5;
 }
+
+/* ------------------------------
+   Enhanced Risk Dashboard
+-------------------------------- */
+
+.risk-main-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.score-description {
+  margin-top: 5px;
+
+  color: #94a3b8;
+
+  font-size: 11px;
+}
+
+
+/* Probability */
+
+.probability-box {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+}
+
+.probability-box div {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 5px;
+}
+
+.probability-box small {
+  color: #94a3b8;
+
+  font-size: 11px;
+}
+
+.probability-box strong {
+  white-space: nowrap;
+}
+
+
+/* Probability Meter */
+
+.probability-meter {
+  margin-bottom: 28px;
+}
+
+.meter-header {
+  display: flex;
+
+  justify-content: space-between;
+
+  margin-bottom: 8px;
+
+  color: #64748b;
+
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.meter-track {
+  width: 100%;
+
+  height: 9px;
+
+  overflow: hidden;
+
+  background: #e5e7eb;
+
+  border-radius: 20px;
+}
+
+.meter-fill {
+  height: 100%;
+
+  min-width: 2px;
+
+  border-radius: 20px;
+
+  transition: width 0.7s ease;
+}
+
+.meter-high {
+  background: #dc2626;
+}
+
+.meter-low {
+  background: #16a34a;
+}
+
+
+/* Explanation improvements */
+
+.explanation-item {
+  padding: 14px;
+
+  align-items: flex-start;
+}
+
+.explanation-info {
+  padding-top: 2px;
+}
+
+.impact-track {
+  width: 100%;
+
+  height: 5px;
+
+  margin-top: 8px;
+
+  overflow: hidden;
+
+  background: #e5e7eb;
+
+  border-radius: 10px;
+}
+
+.impact-fill {
+  height: 100%;
+
+  border-radius: 10px;
+
+  transition: width 0.5s ease;
+}
+
+.impact-risk {
+  background: #ef4444;
+}
+
+.impact-safe {
+  background: #22c55e;
+}
+
+
+/* SHAP value */
+
+.impact-value {
+  min-width: 65px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: flex-end;
+
+  gap: 3px;
+}
+
+.impact-value span {
+  color: #334155;
+
+  font-size: 12px;
+
+  font-weight: 700;
+}
+
+.impact-value small {
+  color: #94a3b8;
+
+  font-size: 9px;
+}
+
+
+/* Explanation note */
+
+.shap-note {
+  margin-top: 18px;
+
+  padding: 13px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 5px;
+
+  background: #f8fafc;
+
+  border: 1px solid #e2e8f0;
+
+  border-radius: 9px;
+
+  color: #64748b;
+
+  font-size: 11px;
+
+  line-height: 1.5;
+}
+
+.shap-note strong {
+  color: #334155;
+
+  font-size: 11px;
+}
