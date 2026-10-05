@@ -1,2 +1,29 @@
+# Python virtual environment
 .venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Environment variables
+.env
+.env.*
+
+# Jupyter
+.ipynb_checkpoints/
+
+
+
+# Dataset
 data/*.csv
+
+# Frontend dependencies and build
+frontend/node_modules/
+frontend/dist/
+
+# VS Code
+.vscode/
+
+# Operating system
+.DS_Store
+Thumbs.db
